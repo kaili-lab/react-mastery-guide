@@ -1,39 +1,16 @@
-import { type MouseEventHandler, useEffect, useRef } from "react";
+import { Route, Routes } from "react-router";
+import AppLayout from "./components/AppLayout";
+import PageOne from "./components/Page1";
+import PageTwo from "./components/Page2";
 
 function App() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const clickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log("box pageY", e.pageY);
-    console.log("box clientY", e.clientY);
-    // 因为React的时间模型，它没有 offsetY 这个属性
-    // console.log("box offsetY", e.offsetY);
-    console.log("box screenY", e.screenY);
-  };
-
-  useEffect(() => {
-    document.getElementById("box")!.addEventListener("click", (e) => {
-      console.log("box2 pageY", e.pageY);
-      console.log("box2 clientY", e.clientY);
-      console.log("box2 offsetY", e.offsetY);
-      console.log("box2 screenY", e.screenY);
-    });
-  }, []);
-
   return (
-    <div>
-      <div
-        id="box"
-        ref={ref}
-        style={{
-          marginTop: "800px",
-          width: "100px",
-          height: "100px",
-          background: "blue",
-        }}
-        onClick={clickHandler}
-      ></div>
-    </div>
+    <Routes>
+      <Route path="app" element={<AppLayout />}>
+        <Route path="page1" element={<PageOne />} />
+        <Route path="page2" element={<PageTwo />} />
+      </Route>
+    </Routes>
   );
 }
 
